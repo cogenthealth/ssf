@@ -1,0 +1,27 @@
+{
+    "name": "cogenthealth/ssf",
+    "description": "about social security fund SSF",
+    "authors": [
+        {
+            "name": "Cogent Health",
+            "email": "testcogenthe@gmail.com"
+        }
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CogentHealth\\Ssf\\SsfServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "BickyRaj\\Ssf\\": "src/"
+        }
+    }
+}
