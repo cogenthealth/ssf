@@ -2,8 +2,8 @@
 
 namespace CogentHealth\Ssf;
 
-use BickyRaj\Ssf\Claim\Claim;
-use BickyRaj\Ssf\Services\AuthService;
+use BickCogentHealthyRaj\Ssf\Claim\Claim;
+use CogentHealth\Ssf\Services\AuthService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;

@@ -1,6 +1,6 @@
 <?php
 
-namespace BickyRaj\Ssf\Claim;
+namespace CogentHealth\Ssf\Claim;
 
 interface ClaimInterface
 {
