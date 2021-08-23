@@ -2,7 +2,7 @@
 
 namespace CogentHealth\Ssf;
 
-use BickCogentHealthyRaj\Ssf\Claim\Claim;
+use CogentHealth\Ssf\Claim\Claim;
 use CogentHealth\Ssf\Services\AuthService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
