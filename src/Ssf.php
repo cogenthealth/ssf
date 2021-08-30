@@ -2,11 +2,11 @@
 
 namespace CogentHealth\Ssf;
 
+use App\Utils\Options;
 use CogentHealth\Ssf\Claim\Claim;
 use CogentHealth\Ssf\Services\AuthService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use App\Utils\Options;
 
 class Ssf implements SsfInterface
 {
@@ -31,6 +31,8 @@ class Ssf implements SsfInterface
     {
         self::$username = AuthService::getUsername();
         self::$password = AuthService::getPassword();
+        self::$hostName =env("SSF_API_URL")?env("SSF_API_URL"):Options::get('ssf_settings')['ssf_url']??'https://demoimis.ssf.gov.np';
+
         self::$clientOptions = [
             'verify' => false,
             'auth' => [
@@ -38,11 +40,10 @@ class Ssf implements SsfInterface
                 self::$password
             ],
             'headers' => [
-                'remote-user' => Options::get('ssf_settings')['ssf_remote_user']
-            ]
+                'remote-user' => Options::get('ssf_settings')['ssf_remote_user']??''
+            ],
+//            'base_uri' =>self::$hostName
         ];
-        self::$hostName =env("SSF_API_URL")?env("SSF_API_URL"):Options::get('ssf_settings')['ssf_url']??'https://demoimis.ssf.gov.np';
-
         self::$ssfClient = new Client(self::$clientOptions);
     }
 
@@ -58,17 +59,19 @@ class Ssf implements SsfInterface
     {
         try {
             self::init();
+
             $response = self::$ssfClient->get(
-                self::$hostName.config('ssf_api_url.patient') . "$patientId?identifier=" . $patientId
+                self::$hostName.config('ssf_api_url.patient') . "?identifier=" . $patientId
             );
+
             self::$httpStatusCode = $response->getStatusCode();
             $responseBody = json_decode($response->getBody()->getContents(), true);
         } catch (\RequestException $e) {
             if ($e->hasResponse()) {
                 $responseBody = json_decode($e->getResponse()->getBody()->getContents());
             }
-            self::$httpStatusCode = 500;
             self::$success = false;
+            self::$httpStatusCode = 500;
         } catch (\Exception $e) {
             $responseBody = '';
             self::$success = false;
