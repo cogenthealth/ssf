@@ -5,8 +5,8 @@ namespace CogentHealth\Ssf;
 use CogentHealth\Ssf\Claim\Claim;
 use CogentHealth\Ssf\Services\AuthService;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use App\Utils\Options;
 
 class Ssf implements SsfInterface
 {
@@ -19,6 +19,7 @@ class Ssf implements SsfInterface
     private static $password;
     private static $ssfClient;
     private static $clientOptions;
+    private static $hostName;
 
     /**
      *
@@ -37,9 +38,10 @@ class Ssf implements SsfInterface
                 self::$password
             ],
             'headers' => [
-                'remote-user' => 'openimis'
+                'remote-user' => Options::get('ssf_settings')['ssf_remote_user']
             ]
         ];
+        self::$hostName =env("SSF_API_URL")?env("SSF_API_URL"):Options::get('ssf_settings')['ssf_url']??'https://demoimis.ssf.gov.np';
 
         self::$ssfClient = new Client(self::$clientOptions);
     }
@@ -57,16 +59,14 @@ class Ssf implements SsfInterface
         try {
             self::init();
             $response = self::$ssfClient->get(
-                config('ssf_api_url.patient') . "?identifier=" . $patientId
+                self::$hostName.config('ssf_api_url.patient') . "$patientId?identifier=" . $patientId
             );
-
             self::$httpStatusCode = $response->getStatusCode();
             $responseBody = json_decode($response->getBody()->getContents(), true);
         } catch (\RequestException $e) {
             if ($e->hasResponse()) {
                 $responseBody = json_decode($e->getResponse()->getBody()->getContents());
             }
-
             self::$httpStatusCode = 500;
             self::$success = false;
         } catch (\Exception $e) {
