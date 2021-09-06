@@ -31,7 +31,7 @@ class Ssf implements SsfInterface
     {
         self::$username = AuthService::getUsername();
         self::$password = AuthService::getPassword();
-        self::$hostName =env("SSF_API_URL")?env("SSF_API_URL"):Options::get('ssf_settings')['ssf_url']??'https://demoimis.ssf.gov.np';
+        self::$hostName =env("SSF_API_URL")?env("SSF_API_URL"):Options::get('ssf_settings')['ssf_url']??'';
 
         self::$clientOptions = [
             'verify' => false,
@@ -42,7 +42,7 @@ class Ssf implements SsfInterface
             'headers' => [
                 'remote-user' => Options::get('ssf_settings')['ssf_remote_user']??''
             ],
-//            'base_uri' =>self::$hostName
+            'base_uri' =>self::$hostName
         ];
         self::$ssfClient = new Client(self::$clientOptions);
     }
@@ -61,7 +61,7 @@ class Ssf implements SsfInterface
             self::init();
 
             $response = self::$ssfClient->get(
-                self::$hostName.config('ssf_api_url.patient') . "?identifier=" . $patientId
+                config('ssf_api_url.patient') . "?identifier=" . $patientId
             );
 
             self::$httpStatusCode = $response->getStatusCode();

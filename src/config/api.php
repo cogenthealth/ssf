@@ -9,5 +9,10 @@
         "claim_response" => "/api/api_fhir_r4/ClaimResponse/",
         "communication_request" => "/api/api_fhir_r4/CommunicationRequest/",
         "eligibility_request" => "/api/api_fhir_r4/CoverageEligibilityRequest/",
-        "coverage" => "/api/api_fhir_r4/Coverage/"
+        "coverage" => "/api/api_fhir_r4/Coverage/",
+        "Contract"=> "/api/api_fhir_r4/Contract/",
+    "Medication"=> "/api/api_fhir_r4/Medication/",
+    "Condition"=> "/api/api_fhir_r4/Condition/",
+    "ActivityDefinition"=> "/api/api_fhir_r4/ActivityDefinition/",
+    "HealthcareService"=> "/api/api_fhir_r4/HealthcareService/"
     ];
