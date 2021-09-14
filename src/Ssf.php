@@ -55,7 +55,7 @@ class Ssf implements SsfInterface
         return self::$instance;
     }
 
-    public static function getPatientDetailById(int $patientId)
+    public static function getPatientDetailById($patientId)
     {
         try {
             self::init();
@@ -83,7 +83,7 @@ class Ssf implements SsfInterface
         return self::apiResponse();
     }
 
-    public static function eligibilityRequest(int $patientId)
+    public static function eligibilityRequest($patientId)
     {
         try {
             self::init();

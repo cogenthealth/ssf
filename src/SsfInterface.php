@@ -20,7 +20,7 @@ interface SsfInterface
      * @param integer $patientId
      * @return json
      */
-    public static function getPatientDetailById(int $patientId);
+    public static function getPatientDetailById($patientId);
 
     /**
      * get eligibility
@@ -28,7 +28,7 @@ interface SsfInterface
      * @param integer $patientId
      * @return json
      */
-    public static function eligibilityRequest(int $patientId);
+    public static function eligibilityRequest($patientId);
 
     /**
      * Claim submission

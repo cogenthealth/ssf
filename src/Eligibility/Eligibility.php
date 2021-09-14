@@ -8,7 +8,7 @@ class Eligibility
 {
     protected $eligiblity;
 
-    public function __construct(int $patientId)
+    public function __construct($patientId)
     {
         $result = Ssf::eligibilityRequest($patientId);
         $result = json_decode($result->getContent(), true);
